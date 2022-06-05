@@ -1,0 +1,29 @@
+@charset "UTF-8";
+* {
+	margin: 0; padding: 0;
+}
+.images {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+#logoid {
+	width: 165px; height: 58px;
+	margin-top: 80px;
+}
+#manu {
+	text-align: center;
+	margin-top: 60px;
+	margin-bottom: 60px;
+}
+#manu a {
+	margin-left: 10px;
+	margin-right: 10px;
+	font-size: 16px;
+	color: #58595B;
+	text-decoration: none;
+	font-family: Helvetica, Arial, sans-serif;
+}
+#imageid {
+	width: 90%;
+}

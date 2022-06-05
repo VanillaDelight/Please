@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+</head>
+<body>
+	<h1>회원가입</h1>
+	
+	<form name="sineup" action="login.jsp" method="post">
+		<p>
+			<label for="id_txt">아이디 : </label>
+			<input id="id_txt" type="text" name="id" placeholder="아이디를 입력해주세요." required="required">
+			<button type="button" onclick="alert('사용가능한 아이디입니다.')">아이디 확인</button>
+		</p>
+		<p>
+			<label for="password">비밀번호 : </label>
+			<input id="password" type="password" name="pwd" placeholder="8자 이상 입력 요망." required="required">
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="friend" value="search">검색
+			</label>
+			<label>
+				<input type="checkbox" name="friend" value="friend">친구
+			</label>
+			<label>
+				<input type="checkbox" name="friend" value="recommend">추천
+			</label>
+			<label>
+				<input type="checkbox" name="friend" value="adv">광고
+			</label>
+			<label>
+				<input type="checkbox" name="friend" value="etc">기타
+			</label>
+		</p>
+		<button type="submit">회원가입</button>
+		<button type="reset">초기화</button>
+	</form>
+	
+	
+</body>
+</html>

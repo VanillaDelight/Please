@@ -1,0 +1,28 @@
+@charset "UTF-8";
+@font-face {
+	src: url("../fonts/BMJUA_ttf.ttf");
+	font-family: "Jua";
+}
+	h1 {
+		font-size: 64px;
+		text-align: center;
+		font-family: 'Blaka Hollow', cursive;
+	}
+	h2 {
+		margin-top: 100px;
+		text-align: right;
+		color: fuchsia;
+		font-family: 'Licorice', cursive;
+	}
+	p i {
+		font-size: 48px;
+	}
+	img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
+	a {
+		font-family: "Jua";
+		font-size: 40px;
+	}

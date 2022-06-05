@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>쇼핑몰 회원관리</title>
+<style type="text/css">
+	* {margin: 0; padding: 0;}
+	header h1 a {text-decoration: none;}
+	header h1 a:visited {color: white;}
+	ul li {list-style: none; margin: 0; padding: 0;}
+	header {height: 100px; background-color: blue; color: white; text-align: center; line-height: 100px;}
+	nav {height: 50px; background-color: aqua; }
+	nav ul li a:hover {color: red;}
+	nav ul li a {float: left; margin: 15px 30px auto; text-decoration: none;}
+	nav ul li:first-child {margin-left: 60px;}
+	
+	section {height: 600px; text-align: center; background-color: #fff;}
+	section h2 {line-height: 100px;}
+	section table {margin: auto;}
+	table, td, th {border: 1px solid violet;}
+	.th1 {padding: 0 10px;}
+	.th2 {padding: 0 10px;}
+	.th3 {padding: 0 20px;}
+	.th4 {padding: 0 40px;}
+	
+	footer {height: 50px; line-height: 50px; background-color: fuchsia; color: white; text-align: center;}
+	
+	
+</style>
+</head>
+<body>
+	<header>
+		<h1><a href="http://localhost:8181/HTML_CSS/shop_home.html">쇼핑몰 회원관리 ver 1.0</a></h1>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="http://localhost:8181/HTML_CSS/shop.html">회원등록</a></li>
+			<li><a href="http://localhost:8181/HTML_CSS/shop_search.html">회원목록 조회/수정</a></li>
+			<li><a href="http://localhost:8181/HTML_CSS/shop_ranking.html">회원매출조회</a></li>
+			<li><a href="http://localhost:8181/HTML_CSS/shop_home.html">홈으로</a></li>
+		</ul>
+	</nav>
+	<section>
+		<h2>회원매출조회</h2>
+		<table>
+			<tr>
+				<th class="th1">회원번호</th>
+				<th class="th2">회원성명</th>
+				<th class="th3">고객등급</th>
+				<th class="th4">매출</th>
+			</tr>
+			<tr>
+				<td>100001</td>
+				<td>김행복</td>
+				<td>VIP</td>
+				<td>8000</td>
+			</tr>
+			<tr>
+				<td>100004</td>
+				<td>최사랑</td>
+				<td>VIP</td>
+				<td>4900</td>
+			</tr>
+			<tr>
+				<td>100003</td>
+				<td>장믿음</td>
+				<td>일반</td>
+				<td>3000</td>
+			</tr>
+			<tr>
+				<td>100002</td>
+				<td>이축복</td>
+				<td>일반</td>
+				<td>2500</td>
+			</tr>
+		</table>
+	</section>
+	<footer>
+		<p>Jaguar Land Rover Limited: Registered office: Abbey Road, Whitley, Coventry CV3 4LF. Registered in England No: 1672070
+		</p>
+	</footer>
+</body>
+</html>

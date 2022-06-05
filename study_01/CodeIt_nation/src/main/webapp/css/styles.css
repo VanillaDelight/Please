@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+@font-face {
+	src: url("../fonts/BMJUA_ttf.ttf");
+	font-family: "Jua";
+}
+
+* {
+	font-family: Jua;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	color: #58595B;
+}
+
+body {
+	background-color: #F0E8D9;
+	text-align: center;
+}
+
+h1 {
+	font-size: 64px;
+	text-align: center;
+	margin: 75px 0 0 0;
+}
+
+h3 {
+	font-size: 32px;
+	margin-top: 30px;
+	margin-bottom: 75px;
+}
+
+.menu {
+	background-color: white;
+	display: block;
+	width: 300px;
+	margin: 0 auto;
+	border-radius: 10px;
+	margin-bottom: 50px;
+	background-repeat: no-repeat;
+	background-size: 300px 200px;
+}
+
+#chicken {
+	background-image: url("../images/chicken.jpg");
+}
+
+#sushi {
+	background-image: url("../images/sushi.jpg");
+}
+
+#burger {
+	background-image: url("../images/burger.jpg");
+}
+
+#bibimbap {
+	width: 300px;
+	height: 200px;
+	border-radius: 10px 10px 0 0;
+}
+
+#bibim {
+	font-size: 32px;
+	padding: 20px 0 20px 0;
+}
+
+.menuname {
+	font-size: 32px;
+	padding: 220px 0 20px 0;
+}
+
+.info {
+	font-size: 16px;
+	padding: 0 20px;
+	text-align: left;
+}
+
+.order_btn {
+	font-size: 16px;
+	padding: 16px 0 20px 0;
+}
+
+.order_btn a {
+	color: #0000EE;
+	text-decoration: none;
+}
