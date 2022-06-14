@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.env-div {
+	width: 500px;
+	height: 232px;
+	position: relative;
+}
+
+.address {
+	font-family: cursive;
+}
+
+.stamp {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+}
+
+.address {
+	position: absolute;
+	bottom: 30px;
+	left: 30px;
+}
