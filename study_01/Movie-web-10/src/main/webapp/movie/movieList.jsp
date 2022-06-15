@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/movie.css">
-
 </head>
 <body>
 	<div id="wrap" align="center">
@@ -35,7 +34,7 @@
 					<td>${list.title }</td>
 					<td>${list.director }</td>
 					<td>${list.actor }</td>
-					<td>${list.price }</td>
+					<td><fmt:formatNumber value="${list.price }" pattern="#,###"/>원</td>
 					<td><a href="update.do?code=${list.code }">정보 수정</a></td>
 					<td><a href="delete.do?code=${list.code }">정보 삭제</a></td>
 				</tr>
