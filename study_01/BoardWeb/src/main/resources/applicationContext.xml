@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+
+	<context:component-scan base-package="com.springbook.biz" />
+	
+	<bean id="around" class="com.springbook.biz.common.AroundAdvice"></bean>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.springbook.biz..*Impl.*(..))" id="allPointcut"/>
+		<aop:aspect ref="around">
+			<aop:around method="aroundLog" pointcut-ref="allPointcut"/>
+		</aop:aspect>
+	</aop:config>
+</beans>
+
+<!--
+
+	<bean id="before" class="com.springbook.biz.common.BeforeAdvice"></bean>
+		<aop:aspect ref="before">
+			<aop:before method="beforeLog" pointcut-ref="allPointcut"/>
+ 
+	<bean id="log" class="com.springbook.biz.common.Log4jAdvice"></bean>
+			<aop:after-returning method="afterLog" pointcut-ref="getPointcut"/>
+		<aop:pointcut expression="execution(* com.springbook.biz..*Impl.get*(..))" id="getPointcut"/>
+
+
+
+
+<aop:before method="log" pointcut-ref="allPointcut"/> 
+
+<bean id="userService" class="com.springbook.biz.user.impl.UserServiceImpl">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	<bean id="userDAO" class="com.springbook.biz.user.impl.UserDAO" /> -->
+	
+	<!-- <bean id="CollectionBean" class="com.springbook.ioc.injectioin.CollectionBean"> 
+		<property name="addressList"> <list> <value>서울시 강남구 역삼동</value> <value>서울시 
+		성동구 행당동</value> </list> </property> <property name="addressSet"> <set value-type="java.lang.String"> 
+		<value>서울시 강남구 옥수동</value> <value>서울시 성동구 내륜동</value> <value>서울시 성동구 내륜동</value> 
+		</set> </property> <property name="addressMap"> <map value-type="java.lang.String" 
+		key-type="java.lang.String"> <entry> <key><value>고길동</value></key> <value>서울시 
+		강남구 역삼동</value> </entry> <entry> <key><value>마이콜</value></key> <value>서울시 
+		강서구 화곡동</value> </entry> </map> </property> <property name="addressProperties"> 
+		<props> <prop key="고길동">서울시 강남구 역동동</prop> <prop key="마이콜">서울시 강서구 둔촌동</prop> 
+		</props> </property> </bean> -->
+	<!-- <bean id="tv1" class="polymorphism.SamsungTV" p:speaker-ref="sony" 
+		p:price="255000"></bean> -->
+	<!-- <bean id="tv1" class="polymorphism.SamsungTV"> <property name="speaker" 
+		ref="apple"></property> <property name="price" value="250000"></property> 
+		</bean> -->
+	<!-- 로딩되는 동시에 bean 클래스들 모두 객체 생성. -->
+	<!-- <bean id="tv2" class="polymorphism.LgTV" lazy-init="true"> <constructor-arg 
+		ref="apple"></constructor-arg> <constructor-arg value="500" type="int"></constructor-arg> 
+		</bean> -->
+
+	<!-- <bean id="sony" class="polymorphism.SonySpeaker" /> <bean id="apple" 
+		class="polymorphism.AppleSpeaker" /> -->
+
+
+
+
+
