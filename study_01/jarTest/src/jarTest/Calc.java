@@ -1,13 +1,13 @@
 package jarTest;
 
-public class rPtksrl {
+public class Calc {
 	int num1, num2;
-	public rPtksrl() {
+	public Calc() {
 		this(0, 0);
 	}
 	
 
-	public rPtksrl(int x, int y) {
+	public Calc(int x, int y) {
 		num1 = x;
 		num2 = y;
 	}
@@ -30,6 +30,6 @@ public class rPtksrl {
 		System.out.printf("더하기 : %d\n", add());
 		System.out.printf("빼기 : %d\n", sub());
 		System.out.printf("곱하기 : %d\n", mul());
-		System.out.printf("나누기 : .2%f\n", div());
+		System.out.printf("나누기 : %.2f\n", div());
 	}
 }

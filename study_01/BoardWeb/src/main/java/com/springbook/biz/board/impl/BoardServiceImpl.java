@@ -13,7 +13,8 @@ import com.springbook.biz.common.LogAdvice;
 @Repository("boardService")
 public class BoardServiceImpl implements BoardService {
 	@Autowired
-	private BoardDAO boardDAO;
+	private BoardDAOSpring boardDAO;
+//	private BoardDAO boardDAO;
 //	private Log4jAdvice log;
 
 	public BoardServiceImpl() {
@@ -26,6 +27,7 @@ public class BoardServiceImpl implements BoardService {
 //		if (vo.getSeq() == 0) {
 //			throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
 //		}
+		boardDAO.insertBoard(vo);
 		boardDAO.insertBoard(vo);
 	}
 
