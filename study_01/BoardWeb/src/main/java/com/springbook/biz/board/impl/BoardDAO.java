@@ -24,6 +24,7 @@ public class BoardDAO {
 	private final String BOARD_DELETE = "delete board where seq=?";
 	private final String BOARD_GET = "select * from board where seq=?";
 	private final String BOARD_LIST = "select * from board order by seq desc";
+	private final String BOARD_CNTCOUNT = "update board set cnt=(cnt+1) where seq=?";
 	
 	public void insertBoard(BoardVO vo) {
 		System.out.println("===> JDBC로 insertBoard() 기능 처리");
@@ -116,5 +117,19 @@ public class BoardDAO {
 			JDBCUtil.close(rs, stmt, conn);
 		}
 		return boardList;
+	}
+	
+	public void countCnt(int seq) {
+		System.out.println("===> JDBC로 countCnt() 기능 처리");
+		try {
+			conn = JDBCUtil.getConnection();
+			stmt = conn.prepareStatement(BOARD_CNTCOUNT);
+			stmt.setInt(1, seq);
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(stmt, conn);
+		}
 	}
 }
