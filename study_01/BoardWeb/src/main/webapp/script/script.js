@@ -16,3 +16,16 @@ function enjoy() {
 	}
 	return true;
 }
+function login() {
+	if (document.frm.id.value == "") {
+		alert("아이디를 입력하세요");
+		frm.id.focus();
+		return false;
+	}
+	if (document.frm.password.value == "") {
+		alert("비밀번호를 입력하세요");
+		frm.password.focus();
+		return false;
+	}
+	return true;
+}

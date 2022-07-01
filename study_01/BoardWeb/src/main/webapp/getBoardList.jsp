@@ -5,23 +5,20 @@
     pageEncoding="UTF-8"%>
 
 <%
-	request.setCharacterEncoding("UTF-8");
-	
-	BoardVO vo = new BoardVO();
-	BoardDAO boardDAO = new BoardDAO();
-	List<BoardVO> boardList = boardDAO.getBoardList(vo);
-	
+	List<BoardVO> boardList = (List) session.getAttribute("boardList");
+	String username = (String) session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<center>
+	<div class="center">
 		<h1>글 목록</h1>
-		<h3>테스트님 환영합니다...<a href="logout_proc.jsp">Log-out</a></h3>
+		<h3><%=username %>님 환영합니다...<a href="logout.do">Log-out</a></h3>
 		
 		<!-- 검색 시작 -->
 		<form action="getBoardList.jsp" method="post">
@@ -51,7 +48,7 @@
 		<% for (BoardVO board : boardList) {%>
 			<tr>
 				<td><%=board.getSeq() %></td>
-				<td><a href="getBoard.jsp?seq=<%=board.getSeq()%>"><%=board.getTitle() %></a></td>
+				<td><a href="getBoard.do?seq=<%=board.getSeq()%>"><%=board.getTitle() %></a></td>
 				<td><%=board.getWriter() %></td>
 				<td><%=board.getRegDate() %></td>
 				<td><%=board.getCnt() %></td>
@@ -60,6 +57,6 @@
 		</table>
 		<br>
 		<a href="insertBoard.jsp">새 글 등록</a>
-	</center>
+	</div>
 </body>
 </html>

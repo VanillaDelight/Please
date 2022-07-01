@@ -6,13 +6,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="script/script.js"></script>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<center>
+	<div class="center">
 		<h1>글 등록</h1>
-		<a href="logout_proc.jsp">Log-out</a>
+		<a href="logout.do">Log-out</a>
 		<hr>
-		<form action="insertBoard_proc.jsp" method="post" name="frm">
+		<form action="insertBoard.do" method="post" name="frm">
 			<table border="1" cellpadding="0" cellspacing="0">
 				<tr>
 					<td bgcolor="orange" width="70">제목</td>
@@ -28,13 +29,13 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input type="submit" value="새 글 등록" onclick="return enjoy()">
+						<input type="submit" value="글 등록" onclick="return enjoy()">
 					</td>
 				</tr>
 			</table>
 		</form>
 		<hr>
 		<a href="getBoardList.jsp">글 목록 가기</a>
-	</center>
+	</div>
 </body>
 </html>

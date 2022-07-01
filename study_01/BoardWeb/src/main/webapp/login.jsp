@@ -5,12 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="script/script.js"></script>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<center>
+	<div class="center">
 		<h1>로그인</h1>
 		<hr>
-		<form action="login_proc.jsp" method="post">
+		<!-- <form action="login_proc.jsp" method="post"> -->
+		<form action="login.do" method="post" name="frm">
 			<table border="1" cellpadding="0" cellpacing="0">
 				<tr>
 					<td bgcolor="orange">아이디</td>
@@ -21,11 +24,11 @@
 					<td><input type="password" name="password"></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><input type="submit" value="로그인"></td>
+					<td colspan="2" align="center"><input type="submit" value="로그인" onclick="return login()"></td>
 				</tr>
 				
 			</table>
 		</form>
-	</center>
+	</div>
 </body>
 </html>
