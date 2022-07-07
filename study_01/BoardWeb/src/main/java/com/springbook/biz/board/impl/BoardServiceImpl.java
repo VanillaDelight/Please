@@ -3,17 +3,19 @@ package com.springbook.biz.board.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.springbook.biz.board.BoardService;
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.common.Log4jAdvice;
 import com.springbook.biz.common.LogAdvice;
 
-@Repository("boardService")
+@Service("boardService")
 public class BoardServiceImpl implements BoardService {
 	@Autowired
-	private BoardDAOSpring boardDAO;
+	private BoardDAO boardDAO;
 //	private BoardDAO boardDAO;
 //	private Log4jAdvice log;
 

@@ -116,9 +116,11 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\git\Please\study_01\bookShop01"/>
 			<item value="C:\git\Please\study_01\web-study-099"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value="C:\git\Please\study_01\BoardWeb\src\main\webapp\WEB-INF\web.xml"/>
 			<item value=""/>
 		</list>
 	</section>
