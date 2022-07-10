@@ -107,7 +107,6 @@ INDEX VERSION 1.131+C:\git\Please\study_01\.metadata\.plugins\org.eclipse.jdt.co
 1952791815.index
 2862790703.index
 2932739077.index
-1108539383.index
 1900177897.index
 1772527207.index
 1751229880.index
