@@ -26,6 +26,7 @@ public class Ex02 {
 		}
 		System.out.println("max : " + max);
 		System.out.println("min : " + min);
+		System.out.println(5 / 2);
 	}
 
 }

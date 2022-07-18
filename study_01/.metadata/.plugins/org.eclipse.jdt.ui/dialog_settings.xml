@@ -123,4 +123,7 @@
 			<item value="C:\myfolder\myjar\calc2.jar"/>
 		</list>
 	</section>
+	<section name="ClasspathContainerSelectionPage">
+		<item key="index" value="0"/>
+	</section>
 </section>
