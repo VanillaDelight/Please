@@ -68,7 +68,7 @@ public class BoardControllerTests {
 	public void testRemove() throws Exception {
 		String resultPage = 
 				mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
-				.param("bno", "21"))
+				.param("bno", "23"))
 				.andReturn()
 				.getModelAndView()
 				.getViewName();
@@ -79,7 +79,7 @@ public class BoardControllerTests {
 	public void testModify() throws Exception {
 		String resultPage = 
 				mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
-						.param("bno",  "22")
+						.param("bno",  "3407875")
 						.param("title", "금요일")
 						.param("content", "적당히.........")
 						.param("writer", "마시기.........")	
@@ -91,7 +91,17 @@ public class BoardControllerTests {
 	}
 	
 	
-	
+	@Test
+	public void testListPaging() throws Exception {
+		log.info(
+				mockMvc.perform(MockMvcRequestBuilders.get("/board/list")
+				.param("pageNum", "5")
+				.param("amount", "30"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap()
+				);
+	}
 	
 	
 	

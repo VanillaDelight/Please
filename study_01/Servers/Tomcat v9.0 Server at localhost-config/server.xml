@@ -111,7 +111,7 @@
 
 
 				
-			<Context docBase="ex02" path="/" reloadable="true" source="org.eclipse.jst.jee.server:ex02"/></Host>
+			<Context docBase="HospitalHomepage" path="/" reloadable="true" source="org.eclipse.jst.jee.server:HospitalHomepage"/></Host>
 		</Engine>
 	</Service>
 </Server>
