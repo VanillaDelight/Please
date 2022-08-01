@@ -11,10 +11,25 @@ CONTENT    NOT NULL VARCHAR2(2000)
 WRITER     NOT NULL VARCHAR2(50)   
 REGDATE             DATE           
 UPDATEDATE          DATE
-*/
+ */
 @Data
 public class BoardVO {
 	private Long bno;
 	private String title, content, writer;
 	private Date regdate, updatedate;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

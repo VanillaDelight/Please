@@ -35,5 +35,20 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping("/login")
+	public String login() {
+		
+		return "login";
+	}
+	@RequestMapping("/hos_search")
+	public String hos_search() {
+		
+		return "hos_search";
+	}
+	@RequestMapping("/hos_name_search")
+	public String hos_name_search() {
+		
+		return "hos_name_search";
+	}
 	
 }
