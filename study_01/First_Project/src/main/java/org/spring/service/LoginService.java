@@ -12,4 +12,7 @@ public interface LoginService {
 	public String find_id(String email, String phone);
 	public int userCheck(MemberVO vo);
 	public void update_pwd(MemberVO vo);
+	public MemberVO getMember(MemberVO vo);
+	public int pwdCheck(String id, String pwd);
+	public void update(MemberVO vo);
 }

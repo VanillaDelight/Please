@@ -12,4 +12,7 @@ public interface LoginMapper {
 	public String find_id(@Param("email") String email, @Param("phone") String phone);
 	public int userCheck(MemberVO vo);
 	public void update_pwd(MemberVO vo);
+	public MemberVO getMember(MemberVO vo);
+	public int pwdCheck(@Param("id") String id, @Param("pwd") String pwd);
+	public void update(MemberVO vo);
 }

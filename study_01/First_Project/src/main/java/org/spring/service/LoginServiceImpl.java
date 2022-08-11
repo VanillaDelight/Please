@@ -89,4 +89,19 @@ public class LoginServiceImpl implements LoginService {
 	public void update_pwd(MemberVO vo) {
 		mapper.update_pwd(vo);
 	}
+
+	@Override
+	public MemberVO getMember(MemberVO vo) {
+		return mapper.getMember(vo);
+	}
+
+	@Override
+	public int pwdCheck(String id, String pwd) {
+		return mapper.pwdCheck(id, pwd);
+	}
+
+	@Override
+	public void update(MemberVO vo) {
+		mapper.update(vo);
+	}
 }

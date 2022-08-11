@@ -14,6 +14,6 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	private String id, pwd, name, email, phone;
+	private String id, pwd, name, email, phone, join_date_pr;
 	private Date join_date;
 }

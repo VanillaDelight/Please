@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script type="text/javascript">
-		alert("실패했습니다.");
-		self.location="main.do";
-	</script>
+	<h1>basic!!!</h1>
+	<h3>${list}</h3>
+	<h3>${list.name}</h3>
+	<h3>${sampleDTO}</h3>
+	<h3>${sampleDTO.name}</h3>
 </body>
 </html>

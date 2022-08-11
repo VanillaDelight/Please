@@ -15,7 +15,7 @@
 		</c:if>
 		<c:if test="${ not empty user }">
 			<li><a href="logout.do">Logout</a></li>
-			<li><a href="#">${user.name }님 반갑습니다</a></li>
+			<li><a href="my_page.do?id=${user.id }">${user.name }님 반갑습니다</a></li>
 		</c:if>
 	</ul>
 </div>

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>SimpleShop</title>
-<link rel="stylesheet" href="../../resources/css/styles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css">
 </head>
 <body>
 <%@include file ="../includes/header.jsp" %>

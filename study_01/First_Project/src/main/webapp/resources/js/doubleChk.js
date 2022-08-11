@@ -41,3 +41,12 @@ function pwd_chk() {
     alert("비밀번호 재설정이 완료되었습니다. :)");
     return true;
 }
+function pwd_double() {
+    if (document.getElementById("pwdDoubleChking").value === "false") {
+	    alert("※ 비밀번호 인증을 완료해주세요.");
+	    my_page.pwd.focus();
+	    return false;
+    }
+    alert("비밀번호 인증이 완료되었습니다. :)");
+	return true;	
+}

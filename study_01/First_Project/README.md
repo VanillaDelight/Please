@@ -14,6 +14,10 @@
 create user First_Project identified by 1234;
 grant connect, dba, resource to First_Project;
 
+-- user 생성
+create user First_Project identified by 1234;
+grant connect, dba, resource to First_Project;
+
 -- table 생성
 create table member (
     id varchar2(50) not null, --아이디

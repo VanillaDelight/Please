@@ -68,18 +68,20 @@ public class LoginController {
 	}
 	@PostMapping("/join.do")
 	public String joining(MemberVO vo) {
-		int check = service.join(vo);
-		if (check != 1) {
-			return "redirect:failed.do";
-		} else {
-			return "redirect:login.do";
-		}
+		service.join(vo);
+		return "redirect:login.do";
 	}
 	@PostMapping("/nameCheck.do")
 	@ResponseBody
 	public int nameCheck(@RequestParam("name") String name) {
 		log.info("============>" + name);
 		return service.nameCheck(name);
+	}
+	@PostMapping("/pwdCheck.do")
+	@ResponseBody
+	public int pwdCheck(@RequestParam("id") String id, @RequestParam("pwd") String pwd) {
+		log.info("============>" + id + pwd);
+		return service.pwdCheck(id, pwd);
 	}
 	@PostMapping("/idCheck.do")
 	@ResponseBody
@@ -155,5 +157,29 @@ public class LoginController {
 		log.info("vo========="+vo);
 		service.update_pwd(vo);
 		return "redirect:login.do";
+	}
+	@GetMapping("/my_page.do")
+	public ModelAndView my_page(MemberVO vo, ModelAndView mvc) {
+		log.info("--update--");
+		log.info("vo========="+vo);
+		mvc.addObject("member", service.getMember(vo));
+		mvc.setViewName("/member/my_page");
+		return mvc;
+	}
+	@PostMapping("/my_page.do")
+	public ModelAndView my_pages(MemberVO vo, ModelAndView mvc) {
+		log.info("--update--");
+		log.info("vo========="+vo);
+		log.info("vo========="+vo.getJoin_date_pr());
+		mvc.addObject("member", service.getMember(vo));
+		mvc.setViewName("/member/update");
+		return mvc;
+	}
+	@PostMapping("/update.do")
+	public String update(MemberVO vo) {
+		log.info("--update_member--");
+		log.info("vo========="+vo);
+		service.update(vo);
+		return "redirect:my_page.do";
 	}
 }
