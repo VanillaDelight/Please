@@ -3,6 +3,7 @@ package org.zerock.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 
@@ -16,6 +17,10 @@ public interface BoardMapper {
 	public List<BoardVO> getListWithPagging(Criteria cri);
 	public int getTotalCount(Criteria cri);
 	
-	//검색조건
+	// 검색조건
 	public List<BoardVO> searchTest( Map<String,  Map<String,String>> map);
+	
+	public int getReplyCnt(Long bno);
+	// 댓글수 등록 ==>> Mybatis의 2개 파라미터를 사용하기 위해 @Param사용.
+	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
 }
