@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.hospital.mapper.PharmacyMapper">
+  
+  	<sql id="criterial">
+  		 <trim prefix="(" suffix=") and">
+	  	<foreach collection="typeArr" item="type" separator="or">
+	  	<if test="type=='N'.toString()">
+	  		name like '%' || #{keyword} || '%'
+	  	</if>
+	  	<if test="type=='A'.toString()">
+	  		address like '%' || #{keyword} || '%'
+	  	</if>
+	  	<if test="type=='P'.toString()">
+	  		phone like '%' || #{keyword} || '%'
+	  	</if>
+	  </foreach>
+	  </trim>
+  	</sql>
+  	
+  	<select id="getList"
+  	resultType="org.hospital.domain.PharmacyVO">
+  	select * from pharmacy
+  	</select>
+  	
+  	<insert id="insert">
+  	insert into pharmacy(bno,name,address,phone, 
+	workday, opentime, closetime, holiday, location)
+	values(seq_pharmacy.nextval,#{name},#{address},
+	#{phone},#{workday},#{opentime},#{closetime},
+	#{holiday}, #{location})
+  	</insert>
+  	
+  	<insert id="insertSelectKey">
+  		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+  			select seq_pharmacy.nextval from dual
+  	</selectKey>
+  	insert into pharmacy(bno,name, address, phone, 
+	workday, opentime, closetime, holiday, location)
+	values(#{bno, jdbcType=NUMERIC},#{name},#{address},
+	#{phone},#{workday},#{opentime},#{closetime},
+	#{holiday}, #{location})
+  	
+  	</insert>
+  	
+  	<select id="read" resultType="org.hospital.domain.PharmacyVO">
+  		select * from pharmacy where bno=#{bno}
+  	</select>	
+  	
+  	<delete id="delete">
+  		delete from pharmacy where bno=#{bno}
+  	</delete>
+  	
+  	<update id="update">
+  		update pharmacy
+		set name = #{name}, 
+		address = #{address}, 
+		phone = #{phone}, 
+		workday = #{workday}, 
+		opentime = #{opentime}, 
+		closetime = #{closetime}, 
+		holiday = #{holiday}, 
+		location = #{location},
+		updatedate = sysdate
+		where bno = #{bno}
+  	</update>
+  	
+	<select id="getListWithPagging" resultType="org.hospital.domain.PharmacyVO">
+  	  
+     <![CDATA[
+  		select bno,name,address,
+  		phone,workday,opentime,closetime,
+		holiday,location,regdate,updatedate
+		from(
+    		select 
+    		rownum rn, bno,name,address,
+  			phone,workday,opentime,closetime,
+			holiday,location,regdate,updatedate
+    		from pharmacy
+    		where 
+	  ]]>   
+	  
+	  <include refid="criterial"></include>
+	   <![CDATA[
+	   	rownum <= #{pageNum} * #{amount})
+		where 
+	   	rn > (#{pageNum}-1) * #{amount}
+	   ]]> 
+  	</select> 
+  	
+  	<!-- 7/20 -->
+  	<!-- BoardMapper 인터페이스 => 바인딩 -->
+  	<!-- 전체 행 갯수 가져오기 -->
+  	<select id="getTotalCount" resultType="int">
+  		<![CDATA[
+  		select count(*) from pharmacy where
+  		]]> 
+  		
+  		<include refid="criterial"></include>
+  		<![CDATA[
+  		bno>0
+  		]]> 
+  	</select>
+<select id="searchTest" resultType="org.hospital.domain.PharmacyVO">
+ 		<![CDATA[
+ 		select * from pharmacy
+ 		where
+ 		]]> 
+ 			<trim prefix="(" suffix=") and">
+ 			<foreach collection="map" index="key" item="val" 
+ 			separator="or">
+ 				<if test="key == 'N'.toString() ">
+ 					name like #{val}
+ 				</if>
+ 				<if test="key == 'A'.toString() ">
+ 					address like #{val}
+ 				</if>
+ 				<if test="key == 'P'.toString() ">
+ 					phone like #{val}
+ 				</if>
+ 			</foreach>
+ 			</trim>
+ 		<![CDATA[	
+ 		rownum < 10
+ 		]]>
+ 	</select>
+ 
+</mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

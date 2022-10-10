@@ -110,8 +110,9 @@
 
 
 
+
 				
-			<Context docBase="ex02" path="/" reloadable="true" source="org.eclipse.jst.jee.server:ex02"/></Host>
+			<Context docBase="Hospital_Page5" path="/" reloadable="true" source="org.eclipse.jst.jee.server:Hospital_Page5"/></Host>
 		</Engine>
 	</Service>
 </Server>

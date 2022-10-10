@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.hospital.mapper.DiseaseMapper">
+
+
+<sql id="criterial">
+
+
+<trim prefix="(" suffix=") and">
+
+
+<foreach separator="or" item="type" collection="typeArr">
+
+<if test="type=='D'.toString()">dname like '%' || #{keyword} || '%' </if>
+
+<if test="type=='I'.toString()">image like '%' || #{keyword} || '%' </if>
+
+<if test="type=='S'.toString()">symptoms like '%' || #{keyword} || '%' </if>
+
+</foreach>
+
+</trim>
+
+</sql>
+
+<select id="getList" resultType="org.hospital.domain.DiseaseVO">select * from disease </select>
+
+<!-- insert문에 regdate, updatedate는 삽입할 필요 없음 -->
+
+
+<insert id="insert">insert into disease(bno,dname, detail, image, symptoms) values(seq_disease.nextval,#{dname},#{detail},#{image},#{symptoms}) </insert>
+
+
+<insert id="insertSelectKey">
+
+<selectKey resultType="long" order="BEFORE" keyProperty="bno">select seq_review.nextval from dual </selectKey>
+insert into disease(bno,dname, detail, image, symptoms)values(#{bno, jdbcType=NUMERIC},#{dname},#{detail},#{image},#{symptoms}) 
+</insert>
+
+<select id="read" resultType="org.hospital.domain.DiseaseVO">select * from disease where bno=#{bno} </select>
+
+<delete id="delete">delete from disease where bno=#{bno} </delete>
+
+<update id="update">
+		update disease 
+		dname = #{dname},
+		detail = #{detail},
+		image = #{image},
+		symptoms = #{symptoms}
+		where bno = #{bno} 
+</update>
+
+
+<select id="getListWithPagging" resultType="org.hospital.domain.DiseaseVO">
+
+<![CDATA[
+  		select bno,dname, detail, image, symptoms
+		from(
+    		select 
+    		rownum rn, bno,dname,detail, image, symptoms
+    		from disease
+    		where 
+	  ]]>
+<include refid="criterial"/>
+
+<![CDATA[
+	   	rownum <= #{pageNum} * #{amount})
+		where 
+	   	rn > (#{pageNum}-1) * #{amount}
+	   ]]>
+</select>
+
+<!-- 7/20 -->
+
+
+<!-- BoardMapper 인터페이스 => 바인딩 -->
+
+
+<!-- 전체 행 갯수 가져오기 -->
+
+
+
+<select id="getTotalCount" resultType="int">
+
+<![CDATA[
+  		select count(*) from review where
+  		]]>
+<include refid="criterial"/>
+
+<![CDATA[
+  		bno>0
+  		]]>
+</select>
+
+
+<select id="searchTest" resultType="org.hospital.domain.DiseaseVO">
+
+<![CDATA[
+ 		select * disease
+ 		where
+ 		]]>
+
+<trim suffix=") and" prefix="(">
+
+
+<foreach separator="or" item="val" collection="map" index="key">
+
+<if test="key == 'D'.toString() ">dname like #{val} </if>
+
+<if test="key == 'I'.toString() ">image like #{val} </if>
+
+<if test="key == 'S'.toString() ">symptoms like #{val} </if>
+
+</foreach>
+
+</trim>
+
+<![CDATA[	
+ 		rownum < 10
+ 		]]>
+</select>
+
+</mapper>

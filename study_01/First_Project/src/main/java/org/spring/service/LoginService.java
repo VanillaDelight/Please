@@ -1,8 +1,14 @@
 package org.spring.service;
 
+import java.util.List;
+
+import org.spring.domain.ChartVO;
 import org.spring.domain.MemberVO;
 
 public interface LoginService {
+	
+	public List<ChartVO> getChart();
+	
 	public MemberVO LoginCheck(MemberVO vo);
 	public int join(MemberVO vo);
 	public int nameCheck(String name);

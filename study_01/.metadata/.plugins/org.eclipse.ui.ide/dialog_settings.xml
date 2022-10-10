@@ -116,6 +116,8 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\git\Please\study_01\Hospital_Page4"/>
+			<item value="C:\git\Please\study_01\Hospital_Page3"/>
 			<item value="C:\Users\naeun\Desktop\hospital_project\hospital_project"/>
 			<item value="C:\Users\naeun\Desktop\hospital_project\hospital_project\Hospital_Page"/>
 			<item value="C:\git\Please\study_01\ex000"/>

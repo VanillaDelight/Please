@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.hospital.mapper.AddressPharMapper">
+  
+  	<sql id="criterial">
+  		 <trim prefix="(" suffix=") and">
+	  	<foreach collection="typeArr" item="type" separator="or">
+	  	<if test="type=='C'.toString()">
+	  		content like '%' || #{keyword} || '%'
+	  	</if>
+	  </foreach>
+	  </trim>
+  	</sql>
+  
+  	<select id="getList"
+  	resultType="org.hospital.domain.AddressPharVO">
+  	select * from pharmacy_address
+  	</select>
+  	
+  	<insert id="insert">
+  	insert into pharmacy_address(bno, centerx, centery, content, latlngx, latlngy)
+	values(seq_pharmacy_address.nextval,#{centerx},#{centery},
+	#{content},#{latlngx},#{latlngy})
+  	</insert>
+  	
+  	<insert id="insertSelectKey">
+  		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+  			select seq_pharmacy_address.nextval from dual
+  		</selectKey>
+  		
+  	insert into pharmacy_address(bno, centerx, centery, content, latlngx, latlngy)
+	values(#{bno, jdbcType=NUMERIC},#{centerx},#{centery},
+	#{content},#{latlngx},#{latlngy})
+  	
+  	</insert>
+  	
+  	<select id="read" resultType="org.hospital.domain.AddressPharVO">
+  		select * from pharmacy_address where bno=#{bno}
+  	</select>	
+  	
+  	
+  	
+  	
+		
+	<select id="getListWithPagging" resultType="org.hospital.domain.AddressPharVO">
+  	  
+     <![CDATA[
+  		select bno, centerx, centery, content, latlngx, latlngy
+		from(
+    		select 
+    		rownum rn, bno, centerx, centery, content, latlngx, latlngy
+    		from pharmacy_address
+    		where 
+	  ]]>   
+	  
+	  <include refid="criterial"></include>
+	   <![CDATA[
+	   	rownum <= #{pageNum} * #{amount})
+		where 
+	   	rn > (#{pageNum}-1) * #{amount}
+	   ]]> 
+  	</select> 
+  	
+  	<!-- 7/20 -->
+  	<!-- BoardMapper 인터페이스 => 바인딩 -->
+  	<!-- 전체 행 갯수 가져오기 -->
+  	<select id="getTotalCount" resultType="int">
+  		<![CDATA[
+  		select count(*) from pharmacy_address where
+  		]]> 
+  		
+  		<include refid="criterial"></include>
+  		<![CDATA[
+  		bno>0
+  		]]> 
+  	</select>
+ 
+ 
+</mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

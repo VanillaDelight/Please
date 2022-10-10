@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.hospital.mapper.InquiryMapper">
+  
+  <sql id="Criterial">
+  		<trim prefix="(" suffix=") and">
+			     	<foreach collection="typeArr" item="type" separator="or">
+			     		<if test="type=='T'.toString()">
+			     			title like '%' || #{keyword} || '%'
+			     		</if>
+			     		<if test="type=='N'.toString()">
+			     			nickname like '%' || #{keyword} || '%'
+			     		</if>
+			     		<if test="type=='S'.toString()">
+			     			symptom2 like '%' || #{keyword} || '%'
+			     		</if>
+			     	</foreach>
+		   </trim>
+  </sql>	
+	
+  <select id="getList" resultType="org.hospital.domain.InquiryVO">
+    select * from inquiry where bno>0 ORDER BY BNO DESC
+  </select>
+  
+  <select id="read"  resultType="org.hospital.domain.InquiryVO">
+  	select * from inquiry where bno = #{bno}
+  </select>
+  
+  <delete id="delete">
+  	delete from inquiry where bno=#{bno}
+  </delete>
+  
+  <insert id="insert" >
+  		insert into inquiry(bno, title, nickname, symptom2,
+		text)
+		values(seq_inquiry.nextval, #{title}, #{nickname}, #{symptom2}
+		,#{text})
+  </insert>
+  
+  <insert id="insertSelectKey" >
+       
+       <selectKey keyProperty="bno" order="BEFORE" resultType="long">
+       		select seq_inquiry.nextval from dual
+       </selectKey>
+  
+  		insert into inquiry(bno, title, nickname, symptom2,
+		text)
+		values(#{bno}, #{title}, #{nickname}, #{symptom2}
+		,#{text})
+  </insert>
+  
+  <update id="update" >
+  	update inquiry
+	set title=#{title},
+	nickname = #{nickname},
+	symptom2 = #{symptom2},
+	text = #{text},
+	updatedate = sysdate
+	where bno = #{bno}
+  </update>
+  
+  <select id="getListWithPagging"  resultType="org.hospital.domain.InquiryVO">
+  		<![CDATA[
+  			 select  bno, title, nickname, symptom2,
+			text, regdate, updatedate
+		 	from(
+	    			select /*+ index_desc(inquiry pk_inquiry) */ 
+	    			rownum rn, bno, title, nickname, symptom2,
+			text, regdate, updatedate
+	    			from inquiry 
+	    	where
+		 ]]>
+		     	<include refid="Criterial"></include>
+		     	
+  		<![CDATA[
+		     	ROWNUM <= #{pageNum} * #{amount} )
+			where 
+			rn > (#{pageNum}-1) * #{amount}
+		 ]]>
+  </select>
+  
+  
+  <select id="getTotalCount"  resultType="int">
+  		<![CDATA[
+	  		select count(*) from inquiry where
+  		 ]]>
+		     
+		     <include refid="Criterial"></include>
+		     	
+  		<![CDATA[
+	  		 bno>0
+  		 ]]>
+  </select>
+  
+  
+  <!--  검색조건 -->
+  <select id="searchTest"   resultType="org.hospital.domain.InquiryVO">
+		<![CDATA[
+			select * from inquiry
+			where 
+		 ]]>
+		 	<trim prefix="(" suffix=") and">
+				<foreach collection="map" index="key" item="val"  separator="or">
+					<if test="key == 'T'.toString()">
+						title like #{val}
+					</if>
+					<if test="key == 'N'.toString()">
+						nickname like #{val}
+					</if>
+					<if test="key == 'S'.toString()">
+						symptom2 like #{val}
+					</if>
+				</foreach>
+			</trim>			
+		<![CDATA[
+			rownum <10
+		 ]]>
+  <!-- /*+ index_desc(tbl_board pk_board) */ --> 
+  </select>  
+  
+  
+</mapper>

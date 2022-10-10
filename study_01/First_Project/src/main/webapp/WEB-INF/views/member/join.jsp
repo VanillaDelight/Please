@@ -9,7 +9,7 @@
 <link href="../../resources/css/styles.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/earlyaccess/notosanskr.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="../../resources/js/joinScript.js"></script>
+<!-- <script src="../../resources/js/joinScript.js"></script> -->
 </head>
 <body>
 <%@include file ="../includes/header.jsp" %>
@@ -38,6 +38,9 @@
 				<input required type="text" name="phone" id="phone" class="text-field checking side" placeholder="전화번호를 입력해주세요">&nbsp; <input type="button" class="btn" id="phoneChk" value="인증번호 받기"><br>
 				<input required type="text" name="phone2" id="phone2" class="text-field checking side" disabled placeholder="인증번호를 입력해주세요">&nbsp; <input type="button" class="btn" id="phoneChk2" value="전화번호 인증" disabled><br>
 				<p class="point successPhoneChk">전화번호 입력 후 인증번호 보내기를 해주십시오.</p><input type="hidden" id="phoneDoubleChk" value="false">
+				<hr>
+				<input type="radio" name="isAdmin" value="user" checked="checked">일반
+				<input type="radio" name="isAdmin" value="Admin">관리자<br>
 				
 				<input type="submit" value="회원가입" class="submit-btn" onclick="return joinChk()"><br>
 			</form>
@@ -101,10 +104,10 @@ $("#name").blur(function(){
 	}
 });
 $("#pwd").blur(function(){
-	var pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+	var pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/;
 	var pwd = $("#pwd").val();
 	if( false === pattern.test(pwd) ) {
-		$(".successPwd").text("※ 비밀번호는 최소 8 자, 최소 하나의 문자 및 하나의 숫자를 포함");
+		$(".successPwd").text("※ 비밀번호는 최소 4 자, 최소 하나의 문자 및 하나의 숫자를 포함");
 		$(".successPwd").css("color", "red");
 		$("#pwdDoubleChking").val("false");
 	}else{

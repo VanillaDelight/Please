@@ -15,7 +15,7 @@
 		<h3>Our New Products</h3>
 		
 		<div class="product-list">
-			<a href="#" class="product">
+			<a href="chart.do" class="product">
 				<img alt="pro" src="../../resources/images/sunglasses.jpg" width="225">
 				<div class="product-name">Sunglasses</div>
 				<div class="product-price">49,000</div>

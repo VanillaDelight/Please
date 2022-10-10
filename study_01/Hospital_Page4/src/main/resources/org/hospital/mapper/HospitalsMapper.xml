@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.hospital.mapper.HospitalsMapper">
+  
+  	<sql id="criterial">
+  		 <trim prefix="(" suffix=") and">
+	  	<foreach collection="typeArr" item="type" separator="or">
+	  	<if test="type=='H'.toString()">
+	  		hosname like '%' || #{keyword} || '%'
+	  	</if>
+	  	<if test="type=='A'.toString()">
+	  		address like '%' || #{keyword} || '%'
+	  	</if>
+	  	<if test="type=='S'.toString()">
+	  		subject like '%' || #{keyword} || '%'
+	  	</if>
+	  </foreach>
+	  </trim>
+  	</sql>
+  
+  	<select id="getList"
+  	resultType="org.hospital.domain.HospitalsVO">
+  	select * from hospitals
+  	</select>
+  	
+  	<insert id="insert">
+  	insert into hospitals(bno,hosname,
+  	address,phone,subject,workday,opentime,closetime,
+	holiday,holisubject,location)
+	values(seq_hospitals.nextval,#{hosname},#{address},
+	#{phone},#{subject},#{workday},#{opentime},#{closetime},
+	#{holiday},#{holisubject},#{location})
+  	</insert>
+  	
+  	<insert id="insertSelectKey">
+  		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+  			select seq_hospitals.nextval from dual
+  		</selectKey>
+  		
+  	insert into hospitals(bno,hosname,
+  	address,phone,subject,workday,opentime,closetime,
+	holiday,holisubject,location)
+	values(#{bno, jdbcType=NUMERIC},#{hosname},#{address},
+	#{phone},#{subject},#{workday},#{opentime},#{closetime},
+	#{holiday},#{holisubject},#{location})
+  	
+  	</insert>
+  	
+  	<select id="read" resultType="org.hospital.domain.HospitalsVO">
+  		select * from hospitals where bno=#{bno}
+  	</select>	
+  	
+  	<delete id="delete">
+  		delete from hospitals where bno=#{bno}
+  	</delete>
+  	
+  	<update id="update">
+  		update hospitals
+		set hosname = #{hosname}, 
+		address = #{address}, 
+		phone = #{phone}, 
+		subject = #{subject}, 
+		workday = #{workday}, 
+		opentime = #{opentime}, 
+		closetime = #{closetime}, 
+		holiday = #{holiday}, 
+		holisubject = #{holisubject}, 
+		location = #{location}, 
+		updatedate = sysdate
+		where bno = #{bno}
+  	</update>
+		
+	<select id="getListWithPagging" resultType="org.hospital.domain.HospitalsVO">
+  	  
+     <![CDATA[
+  		select bno,hosname,address,
+  		phone,subject,workday,opentime,closetime,
+		holiday,holisubject,location,regdate,updatedate
+		from(
+    		select 
+    		rownum rn, bno,hosname,address,
+  			phone,subject,workday,opentime,closetime,
+			holiday,holisubject,location,regdate,updatedate
+    		from hospitals
+    		where 
+	  ]]>   
+	  
+	  <include refid="criterial"></include>
+	   <![CDATA[
+	   	rownum <= #{pageNum} * #{amount})
+		where 
+	   	rn > (#{pageNum}-1) * #{amount}
+	   ]]> 
+  	</select> 
+  	
+  	<!-- 7/20 -->
+  	<!-- BoardMapper 인터페이스 => 바인딩 -->
+  	<!-- 전체 행 갯수 가져오기 -->
+  	<select id="getTotalCount" resultType="int">
+  		<![CDATA[
+  		select count(*) from hospitals where
+  		]]> 
+  		
+  		<include refid="criterial"></include>
+  		<![CDATA[
+  		bno>0
+  		]]> 
+  	</select>
+ 
+ 	<select id="searchTest" resultType="org.hospital.domain.HospitalsVO">
+ 		<![CDATA[
+ 		select * from hospitals
+ 		where
+ 		]]> 
+ 			<trim prefix="(" suffix=") and">
+ 			<foreach collection="map" index="key" item="val" 
+ 			separator="or">
+ 				<if test="key == 'H'.toString() ">
+ 					hosname like #{val}
+ 				</if>
+ 				<if test="key == 'A'.toString() ">
+ 					address like #{val}
+ 				</if>
+ 				<if test="key == 'S'.toString() ">
+ 					subject like #{val}
+ 				</if>
+ 			</foreach>
+ 			</trim>
+ 		<![CDATA[	
+ 		rownum < 10
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="getReviewList" resultType="org.hospital.domain.ReplyVO">
+      select rno, bno, reply, replyer, replyDate, updateDate, rate
+      from hospital_reply
+      where id = #{id }
+        order by rno desc
+   </select>
+ 
+</mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

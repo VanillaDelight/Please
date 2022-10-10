@@ -1,6 +1,9 @@
 package org.spring.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+import org.spring.domain.ChartVO;
 import org.spring.domain.MemberVO;
 
 public interface LoginMapper {
@@ -15,4 +18,5 @@ public interface LoginMapper {
 	public MemberVO getMember(MemberVO vo);
 	public int pwdCheck(@Param("id") String id, @Param("pwd") String pwd);
 	public void update(MemberVO vo);
+	public List<ChartVO> getChart();
 }

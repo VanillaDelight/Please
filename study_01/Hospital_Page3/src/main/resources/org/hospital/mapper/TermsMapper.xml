@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.hospital.mapper.TermsMapper">
+  
+  	<sql id="criterial">
+  		 <trim prefix="(" suffix=") and">
+	  	<foreach collection="typeArr" item="type" separator="or">
+	  	<if test="type=='T'.toString()">
+	  		title like '%' || #{keyword} || '%'
+	  	</if>
+	  	<if test="type=='C'.toString()">
+	  		content like '%' || #{keyword} || '%'
+	  	</if>
+	  </foreach>
+	  </trim>
+  	</sql>
+  
+  	<select id="getList"
+  	resultType="org.hospital.domain.TermsVO">
+  	select * from terms
+  	</select>
+  	
+  	<insert id="insert">
+  	insert into terms(bno,title,content)
+	values(seq_hospitals.nextval,#{title},#{content})
+  	</insert>
+  	
+  	<insert id="insertSelectKey">
+  		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+  			select seq_terms.nextval from dual
+  		</selectKey>
+  		
+  	insert into terms(bno,title,content)
+	values(#{terms},#{title},#{content})
+  	
+  	</insert>
+  	
+  	<select id="read" resultType="org.hospital.domain.TermsVO">
+  		select * from terms where bno=#{bno}
+  	</select>	
+  	
+  	<delete id="delete">
+  		delete from terms where bno=#{bno}
+  	</delete>
+  	
+  	<update id="update">
+  		update terms
+		set title = #{title}, 
+		content = #{content}, 
+		updatedate = sysdate
+		where bno = #{bno}
+  	</update>
+		
+	<select id="getListWithPagging" resultType="org.hospital.domain.TermsVO">
+  	  
+     <![CDATA[
+  		select bno,title,content,regdate,updatedate
+		from(
+    		select 
+    		rownum rn,bno,title,content,regdate,updatedate
+    		from terms
+    		where 
+	  ]]>   
+	  
+	  <include refid="criterial"></include>
+	   <![CDATA[
+	   	rownum <= #{pageNum} * #{amount})
+		where 
+	   	rn > (#{pageNum}-1) * #{amount}
+	   ]]> 
+  	</select> 
+  	
+  	<!-- 7/20 -->
+  	<!-- BoardMapper 인터페이스 => 바인딩 -->
+  	<!-- 전체 행 갯수 가져오기 -->
+  	<select id="getTotalCount" resultType="int">
+  		<![CDATA[
+  		select count(*) from terms where
+  		]]> 
+  		
+  		<include refid="criterial"></include>
+  		<![CDATA[
+  		bno>0
+  		]]> 
+  	</select>
+ 
+ 	<select id="searchTest" resultType="org.hospital.domain.TermsVO">
+ 		<![CDATA[
+ 		select * from terms
+ 		where
+ 		]]> 
+ 			<trim prefix="(" suffix=") and">
+ 			<foreach collection="map" index="key" item="val" 
+ 			separator="or">
+ 				<if test="key == 'T'.toString() ">
+ 					title like #{val}
+ 				</if>
+ 				<if test="key == 'C'.toString() ">
+ 					content like #{val}
+ 				</if>
+ 			</foreach>
+ 			</trim>
+ 		<![CDATA[	
+ 		rownum < 10
+ 		]]>
+ 	</select>
+ 
+</mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

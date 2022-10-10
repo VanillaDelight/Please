@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.hospital.mapper.SelfDiagnosisEyesMapper">
+  
+  	<sql id="criterial">
+  		 <trim prefix="(" suffix=") and">
+	  	<foreach collection="typeArr" item="type" separator="or">
+	  	<if test="type=='Q'.toString()">
+	  		question like '%' || #{keyword} || '%'
+	  	</if>
+	  </foreach>
+	  </trim>
+  	</sql>
+  
+  	<select id="getList"
+  	resultType="org.hospital.domain.SelfDiagnosisEyesVO">
+  	select * from self_diagnosis_eyes where bno>0 ORDER BY BNO DESC
+  	</select>
+  	
+  	<!-- insert문에 regdate, updatedate는 삽입할 필요 없음 -->
+  	<insert id="insert">
+  	insert into self_diagnosis_eyes(bno,question)
+	values(seq_self_diagnosis_eyes.nextval,#{question})
+  	</insert>
+  	
+  	<insert id="insertSelectKey">
+  		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+  			select seq_self_diagnosis_eyes.nextval from dual
+  		</selectKey>
+  		
+  	insert into self_diagnosis_eyes(bno,question)
+	values(#{bno, jdbcType=NUMERIC},#{question})
+  	
+  	</insert>
+  	
+  	<select id="read" resultType="org.hospital.domain.SelfDiagnosisEyesVO">
+  		select * from self_diagnosis_eyes where bno=#{bno}
+  	</select>	
+  	
+  	<delete id="delete">
+  		delete from self_diagnosis_eyes where bno=#{bno}
+  	</delete>
+  	
+  	<update id="update">
+  		update self_diagnosis_eyes
+		set question = #{question} 
+		where bno = #{bno}
+  	</update>
+		
+	<select id="getListWithPagging" resultType="org.hospital.domain.SelfDiagnosisEyesVO">
+  	  
+     <![CDATA[
+  		select bno,question
+		from(
+    		select 
+    		rownum rn, bno,question
+    		from self_diagnosis_eyes
+    		where 
+	  ]]>   
+	  
+	  <include refid="criterial"></include>
+	   <![CDATA[
+	   	rownum <= #{pageNum} * #{amount})
+		where 
+	   	rn > (#{pageNum}-1) * #{amount}
+	   ]]> 
+  	</select> 
+  	
+  	<!-- 7/20 -->
+  	<!-- BoardMapper 인터페이스 => 바인딩 -->
+  	<!-- 전체 행 갯수 가져오기 -->
+  	<select id="getTotalCount" resultType="int">
+  		<![CDATA[
+  		select count(*) from self_diagnosis_eyes where 
+  		]]> 
+  		
+  		<include refid="criterial"></include>
+  		<![CDATA[
+  		bno>0
+  		]]> 
+  	</select>
+ 
+ 	<select id="searchTest" resultType="org.hospital.domain.SelfDiagnosisEyesVO">
+ 		<![CDATA[
+ 		select * from self_diagnosis_eyes
+ 		where
+ 		]]> 
+ 			<trim prefix="(" suffix=") and">
+ 			<foreach collection="map" index="key" item="val" 
+ 			separator="or">
+ 				<if test="type=='Q'.toString()">
+	  		question like '%' || #{val}
+	  	</if>
+	  
+ 			</foreach>
+ 			</trim>
+ 		<![CDATA[	
+ 		rownum < 10
+ 		]]>
+ 	</select>
+ 
+</mapper>
+  
+  

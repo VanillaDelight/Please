@@ -1,8 +1,10 @@
 package org.spring.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.simple.JSONObject;
+import org.spring.domain.ChartVO;
 import org.spring.domain.MemberVO;
 import org.spring.mapper.LoginMapper;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,13 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 @Log4j
 @AllArgsConstructor
 public class LoginServiceImpl implements LoginService {
+
 	LoginMapper mapper;
+	
+	@Override
+	public List<ChartVO> getChart() {
+		return mapper.getChart();
+	}
 
 	@Override
 	public MemberVO LoginCheck(MemberVO vo) {

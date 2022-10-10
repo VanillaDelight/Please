@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hospital.mapper.LoginMapper">
+	<select id="loginCheck" resultType="org.hospital.domain.MemberVO">
+		select * from member where id = #{id} and pwd = #{pwd}
+	</select>
+	<insert id="join">
+		insert into member (id, pwd, name, email, phone) values (#{id}, #{pwd}, #{name}, #{email}, #{phone})
+	</insert>
+	<select id="getmypage" resultType="org.hospital.domain.MemberVO">
+		select * from member where id=#{id}
+	</select>
+	<select id="nameCheck" resultType="integer">
+		select count(*) from member where name = #{name}
+	</select>
+	<select id="idCheck" resultType="integer">
+		select count(*) from member where id = #{id}
+	</select>
+	<select id="pwdCheck" resultType="integer" parameterType="map">
+		select count(*) from member where id = #{id} and pwd = #{pwd}
+	</select>
+	<select id="emailCheck" resultType="integer">
+		select count(*) from member where email = #{email}
+	</select>
+	<select id="find_id" resultType="string" parameterType="map">
+		select id from member where email = #{email} and phone = #{phone}
+	</select>
+	<select id="userCheck" resultType="integer">
+		select count(*) from member where id = #{id} and email = #{email}
+	</select>
+	<update id="update_pwd" parameterType="map">
+		update member set pwd = #{pwd} where id = #{id}
+	</update>
+	<select id="getMember" resultType="org.hospital.domain.MemberVO">
+		select * from member where id = #{id}
+	</select>
+	<update id="update_member">
+		update member set name = #{name}, email = #{email}, phone = #{phone} where id = #{id}
+	</update>
+	<delete id="deleteMember">
+		delete from member where id = #{id}
+	</delete>
+</mapper>

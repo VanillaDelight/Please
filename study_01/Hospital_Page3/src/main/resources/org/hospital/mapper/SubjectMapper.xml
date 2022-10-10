@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.hospital.mapper.SubjectMapper">
+  
+  	<sql id="criterial">
+  		 <trim prefix="(" suffix=") and">
+	  	<foreach collection="typeArr" item="type" separator="or">
+	  	<if test="type=='H'.toString()">
+	  		hospitalsub like '%' || #{keyword} || '%'
+	  	</if>
+	  	<if test="type=='S'.toString()">
+	  		symptom like '%' || #{keyword} || '%'
+	  	</if>
+	  </foreach>
+	  </trim>
+  	</sql>
+  
+  	<select id="getList"
+  	resultType="org.hospital.domain.SubjectVO">
+  	select * from subject where bno>0 ORDER BY BNO ASC
+  	</select>
+  	
+  	<insert id="insert">
+  	insert into subject(bno,hospitalsub,symptom)
+	values(seq_subject.nextval,#{hospitalsub},#{symptom})
+  	</insert>
+  	
+  	<insert id="insertSelectKey">
+  		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+  			select seq_subject.nextval from dual
+  		</selectKey>
+  	
+  	insert into subject(bno,hospitalsub,symptom)
+	values(#{bno, jdbcType=NUMERIC},#{hospitalsub},#{symptom})
+  		
+  	</insert>
+  	
+  	<select id="read" resultType="org.hospital.domain.SubjectVO">
+  		select * from subject where bno=#{bno}
+  	</select>	
+  	
+  	<delete id="delete">
+  		delete from subject where bno=#{bno}
+  	</delete>
+  	
+  	<update id="update">
+  		update subject
+		set hospitalsub = #{hospitalsub}, 
+		symptom = #{symptom}, 
+		updatedate = sysdate
+		where bno = #{bno}
+  	</update>
+		
+	<select id="getListWithPagging" resultType="org.hospital.domain.SubjectVO">
+  	  
+     <![CDATA[
+  		select bno,hospitalsub,symptom,
+  		regdate,updatedate
+		from(
+    		select 
+    		rownum rn,bno,hospitalsub,symptom,
+  			regdate,updatedate
+    		from subject
+    		where 
+	  ]]>   
+	  
+	  <include refid="criterial"></include>
+	   <![CDATA[
+	   	rownum <= #{pageNum} * #{amount})
+		where 
+	   	rn > (#{pageNum}-1) * #{amount}
+	   ]]> 
+  	</select> 
+  	
+  	<!-- 7/20 -->
+  	<!-- BoardMapper 인터페이스 => 바인딩 -->
+  	<!-- 전체 행 갯수 가져오기 -->
+  	<select id="getTotalCount" resultType="int">
+  		<![CDATA[
+  		select count(*) from subject where
+  		]]> 
+  		
+  		<include refid="criterial"></include>
+  		<![CDATA[
+  		bno>0
+  		]]> 
+  	</select>
+ 
+ 	<select id="searchTest" resultType="org.hospital.domain.SubjectVO">
+ 		<![CDATA[
+ 		select * from subject
+ 		where
+ 		]]> 
+ 			<trim prefix="(" suffix=") and">
+ 			<foreach collection="map" index="key" item="val" 
+ 			separator="or">
+ 				<if test="key == 'H'.toString() ">
+ 					hospitalsub like #{val}
+ 				</if>
+ 				<if test="key == 'S'.toString() ">
+ 					symptom like #{val}
+ 				</if>
+ 			</foreach>
+ 			</trim>
+ 		<![CDATA[	
+ 		rownum < 10
+ 		]]>
+ 	</select>
+ 
+</mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
